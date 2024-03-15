@@ -23,8 +23,7 @@ namespace CookingBoard
         /// Projekt apikey free version funktioniert nicht 
         /// </summary>
         /// 
-        
-        //Deklarieren und Initialisieren
+
         static readonly HttpClient client = new HttpClient();
         List<string> list = new List<string>();
         List<string> wert = new List<string>();
@@ -33,7 +32,6 @@ namespace CookingBoard
         {
             InitializeComponent();
         }
-        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -54,46 +52,46 @@ namespace CookingBoard
 
         private async Task Main()
         {
-                // Erstellen Sie eine Instanz des OpenAIService mit Ihrem API-Schlüssel.
-                var service = new OpenAIService(new OpenAiOptions
-                {
-                    ApiKey = "ihrAPIkey"
-                });
+            // Erstellen Sie eine Instanz des OpenAIService mit Ihrem API-Schlüssel.
+            var service = new OpenAIService(new OpenAiOptions
+            {
+                ApiKey = "Ihr API"
+            });
 
-                // Setzen Sie das Standardmodell für den Service.
-                service.SetDefaultModelId(Models.ChatGpt3_5Turbo);
+            // Setzen Sie das Standardmodell für den Service.
+            service.SetDefaultModelId(Models.ChatGpt3_5Turbo);
 
-                // Erstellen Sie eine Liste von ChatMessages für die Anfrage.
-                var message = new List<ChatMessage>
-                {
-                    ChatMessage.FromSystem("you are a cook chef"),
-                    ChatMessage.FromUser("Erstell ein rezept aus diesen Lebensmitteln 100 ml Zimt 1 Apfel")
-                };
+            // Erstellen Sie eine Liste von ChatMessages für die Anfrage.
+            var message = new List<ChatMessage>
+            {
+                ChatMessage.FromSystem("Du bist ein Chefkoch"),
+                ChatMessage.FromUser("Erstell ein rezept aus diesen Lebensmitteln 100 ml Zimt 1 Apfel")
+            };
 
-                // Erstellen Sie die Anfrage für die ChatCompletion.
-                var req = new ChatCompletionCreateRequest
-                {
-                    Messages = message,
-                    N = 1,
-                    //Maxtokens = 1000,
-                    //FrequencyPenalty = 2.0f,
-                    //Temperature = 0.1f
-                };
+            // Erstellen Sie die Anfrage für die ChatCompletion.
+            var req = new ChatCompletionCreateRequest
+            {
+                Messages = message,
+                N = 1,
+                //Maxtokens = 1000,
+                FrequencyPenalty = 2.0f,
+                Temperature = 0.1f
+            };
 
-                // Senden Sie die Anfrage und warten Sie auf die Antwort.
-                var res = await service.ChatCompletion.CreateCompletion(req);
+            // Senden Sie die Anfrage und warten Sie auf die Antwort.
+            var res = await service.ChatCompletion.CreateCompletion(req);
 
-                // Überprüfen Sie, ob die Anfrage erfolgreich war.
-                if (res.Successful)
-                {
-                    // Wenn die Anfrage erfolgreich war, setzen Sie den Text des richTextBox2 auf die Antwort des Modells.
-                    richTextBox2.Text = res.Choices.First().Message.Content;
-                }
-                else
-                {
-                    // Wenn die Anfrage nicht erfolgreich war, zeigen Sie eine Fehlermeldung an.
-                    MessageBox.Show("Unsuccessful!");
-                }
+            // Überprüfen Sie, ob die Anfrage erfolgreich war.
+            if (res.Successful)
+            {
+                // Wenn die Anfrage erfolgreich war, setzen Sie den Text des richTextBox2 auf die Antwort des Modells.
+                richTextBox2.Text = res.Choices.First().Message.Content;
+            }
+            else
+            {
+                // Wenn die Anfrage nicht erfolgreich war, zeigen Sie eine Fehlermeldung an.
+                MessageBox.Show("Unsuccessful!");
+            }
         }
 
 
